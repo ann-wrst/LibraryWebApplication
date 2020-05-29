@@ -1,0 +1,38 @@
+﻿@model IEnumerable<LibraryWebApplication.Categories>
+
+@{
+    ViewData["Title"] = "Категорії";
+}
+
+<h1>Категорії книги @ViewBag.BookName</h1>
+
+<div>
+    <a asp-controller="Books" asp-action="CategoryAdd" asp-route-id="@ViewBag.BookId">Додати Категорію</a>
+    <br>
+    <a asp-controller="Books" asp-action="Index">Список всіх книг</a> |
+    <a asp-controller="Categories" asp-action="Index">Список всіх Категорій</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    <a asp-controller="Books" asp-action="CategoryRemove" asp-route-bookid="@ViewBag.BookId" asp-route-categoryid="@item.Id">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

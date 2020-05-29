@@ -1,0 +1,32 @@
+﻿@model LibraryWebApplication.BookCategory
+
+@{
+    ViewData["Title"] = "Видалення";
+}
+
+<h1>Видалення</h1>
+
+<h3>Ви впевнені, що хочете видалити категорію?</h3>
+<div>
+    <h4>Books</h4>
+    <hr />
+    <dl class="row" >
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Book.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Book.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Category.CategoryName)
+        </dd>
+    </dl>
+
+    <form asp-action="CategoryRemove" asp-route-BookId="@ViewBag.BookId" asp-route-CategoryId="@ViewBag.CategoryId">
+        <input type="submit" value="Вилучити" class="btn btn-danger"/> |
+        <a asp-action="Details" asp-route-id="@ViewBag.BookId">Назад до списку категорій</a>
+    </form>
+</div>

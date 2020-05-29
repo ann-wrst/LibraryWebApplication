@@ -1,0 +1,27 @@
+﻿@model LibraryWebApplication.Categories
+
+@{
+    ViewData["Title"] = "Видалення";
+}
+
+<h1>Видалити</h1>
+
+<h3>Ви впевнені, що хочете це видалити?</h3>
+<div>
+    <h4>Categories</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CategoryName)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Видалити" class="btn btn-danger" /> |
+        <a asp-action="Index">Назад до списку</a>
+    </form>
+</div>

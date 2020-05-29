@@ -1,0 +1,84 @@
+﻿@model IEnumerable<LibraryWebApplication.Categories>
+
+@{
+    ViewData["Title"] = "Категорії";
+}
+
+<h1>Категорії</h1>
+
+<p>
+    <a asp-action="Create">Створити нову</a>
+</p>
+<div>
+    <h3>Оберіть excel-файл для заватаження</h3>
+    @using (Html.BeginForm("Import", "Categories", FormMethod.Post, new { enctype = "multipart/form-data", id = "frm-excel" }))
+    {
+        <div>
+            Завантажте Excel-файл:
+            <input type="file" name="fileExcel" id="fileExcel" />
+            <div>
+                <input type="submit" value="Завантажити" />
+            </div>
+        </div>
+    }
+    @Html.Raw(TempData["msgDATA"])
+</div>
+<div>
+    <h3>Шаблон excel-файлу для завантаження</h3>
+    <a asp-action="Example">Завантажити</a>
+</div>
+<div>
+    <h3>Завантаження інформації в файл</h3>
+    <a asp-action="Export">Завантажити</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редагувати</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Книги категорії</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div id="CategoriesChart"></div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script>
+    google.charts.load('current', { packages: ['corechart'] });
+    google.charts.setOnLoadCallback(drawChartCategories);
+
+    function drawChartCategories() {
+        $.get('/API/Categories', function (JsonData) {
+            data = google.visualization.arrayToDataTable(JsonData, false);
+            var option = {
+                backgroundColor: '#272B30',
+                legend: {
+                    textStyle: {
+                        color: 'white',
+                    },
+                },
+            };
+            chart = new google.visualization.PieChart(document.getElementById('CategoriesChart'));
+            chart.draw(data, option);
+        })
+    }
+
+
+
+</script>

@@ -1,0 +1,79 @@
+﻿@model IEnumerable<LibraryWebApplication.BookReading>
+
+@{
+    ViewData["Title"] = "Список книг";
+}
+
+<h1>Список книг читача @ViewBag.readerName</h1>
+
+<div>
+    <a asp-action="BookAdd" asp-controller="Readers" asp-route-id="@ViewBag.Readerid">Додати книгу</a>
+    <br>
+    <a asp-action="Index" asp-controller="Categories">Всі Категорії</a> |
+    <a asp-action="Index" asp-controller="Books">Всі Книги</a>|
+    <a asp-action="Index" asp-controller="Readers">Всі Читачі</a>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.YearOfPublication)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Book.NumberOfPages)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateOfIssue)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReturnDate)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.YearOfPublication)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Book.NumberOfPages)
+                </td>
+                <td>
+                    @if (item.DateOfIssue != null)
+                    {
+                        @Html.DisplayFor(modelIte => item.DateOfIssue)
+                    }
+                    else
+                    {
+                        @Html.Raw("<p>Без данних</p>");
+                    }
+                </td>
+                <td>
+                    @if (item.ReturnDate != null)
+                    {
+                        @Html.DisplayFor(modelIte => item.ReturnDate)
+                    }
+                    else
+                    {
+                        @Html.Raw("<p>Без данних</p>");
+                    }
+                </td>
+                <td>
+                    <a asp-action="HandBook" asp-route-Id="@item.Id">Здати книгу</a> |
+                    <a asp-action="index" asp-controller="Authors" asp-route-id="@item.Book.Id">Автори</a> |
+                    <a asp-action="BookRemove" asp-route-Id="@item.Id">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

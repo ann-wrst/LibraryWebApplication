@@ -1,0 +1,40 @@
+﻿@model IEnumerable<LibraryWebApplication.Books>
+
+@{
+    ViewData["Title"] = "Список книг";
+}
+
+<h1>Книги категорії @ViewBag.categoryName</h1>
+<a asp-controller="Books" asp-action="Index">Список всіх книг</a> |
+<a asp-controller="Categories" asp-action="Index">Список всіх категорій</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.YearOfPublication)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NumberOfPages)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.YearOfPublication)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NumberOfPages)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

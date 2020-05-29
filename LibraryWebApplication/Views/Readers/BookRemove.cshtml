@@ -1,0 +1,32 @@
+﻿@model LibraryWebApplication.BookReading
+
+@{
+    ViewData["Title"] = "Видалення";
+}
+
+    <h1>Видалення</h1>
+
+<h3>Ви впевнені, що хочете видалити книгу?</h3>
+<div>
+    <h4>Книги</h4>
+    <hr />
+
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Reader.FullName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Reader.FullName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Book.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Book.Name)
+        </dd>
+    </dl>
+    <form asp-action="BookRemove" asp-route-ReaderId="@ViewBag.ReaderId" asp-route-BookId="@ViewBag.BookId">
+        <input type="submit" value="Видалити" class="btn btn-danger" /> |
+        <a asp-action="Details" asp-route-id="@ViewBag.BookId">Вернутись до списку книг читача</a>
+    </form>
+</div>
